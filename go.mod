@@ -1,4 +1,4 @@
-module github.com/InsomniaCoder/kubectl-insight-logs
+module github.com/InsomniaCoder/kubectl-loginsight
 
 go 1.22.5
 
