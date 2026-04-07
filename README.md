@@ -1,4 +1,4 @@
-# kubectl-log-insight
+# kubectl-insight-logs
 
 A kubectl plugin that analyzes Kubernetes logs using a local LLM. Pipe logs through it to get an instant summary or answer a specific question — no more `grep` needle-in-a-haystack.
 
@@ -16,7 +16,7 @@ A kubectl plugin that analyzes Kubernetes logs using a local LLM. Pipe logs thro
 
 ```bash
 # Install directly
-go install github.com/InsomniaCoder/kubectl-log-insight@latest
+go install github.com/InsomniaCoder/kubectl-insight-logs@latest
 ```
 
 Make sure `~/go/bin` is in your PATH:
@@ -26,23 +26,23 @@ export PATH="$PATH:$HOME/go/bin"  # add to ~/.zshrc to make it permanent
 
 Verify kubectl discovers it:
 ```bash
-kubectl plugin list  # should show /Users/<you>/go/bin/kubectl-log-insight
+kubectl plugin list  # should show /Users/<you>/go/bin/kubectl-insight-logs
 ```
 
-> **Note:** kubectl discovers plugins by scanning `$PATH` for executables named `kubectl-*`. However, because `kubectl log` conflicts with the built-in `kubectl logs` command, always invoke this plugin directly as `kubectl-log-insight` (with a hyphen) rather than `kubectl log-insight`.
+> **How kubectl discovers plugins:** kubectl scans every directory in `$PATH` for executables named `kubectl-*` and exposes them as subcommands. Because this binary is named `kubectl-insight-logs`, you can invoke it as either `kubectl insight-logs` or `kubectl-insight-logs`.
 
 ## Usage
 
 ```bash
 # Summarize what's happening in the logs
-kubectl logs <pod> | kubectl-log-insight --model qwen/qwen3.5-9b --base-url http://localhost:1234/v1
+kubectl logs <pod> | kubectl-insight-logs --model qwen/qwen3.5-9b --base-url http://localhost:1234/v1
 
 # Ask a specific question
-kubectl logs <pod> | kubectl-log-insight --model qwen/qwen3.5-9b --base-url http://localhost:1234/v1 -q "why did the pod crash?"
+kubectl logs <pod> | kubectl-insight-logs --model qwen/qwen3.5-9b --base-url http://localhost:1234/v1 -q "why did the pod crash?"
 
 # Read from a saved log file
 kubectl logs <pod> > ./app.log
-kubectl-log-insight --file ./app.log --model qwen/qwen3.5-9b --base-url http://localhost:1234/v1 -q "any OOMKilled signs?"
+kubectl-insight-logs --file ./app.log --model qwen/qwen3.5-9b --base-url http://localhost:1234/v1 -q "any OOMKilled signs?"
 ```
 
 ## Flags
@@ -75,10 +75,10 @@ Since `--base-url` accepts any OpenAI-compatible endpoint, you can point it at a
 
 ```bash
 # Ollama
-kubectl logs <pod> | kubectl-log-insight --model qwen2.5:7b --base-url http://localhost:11434/v1
+kubectl logs <pod> | kubectl-insight-logs --model qwen2.5:7b --base-url http://localhost:11434/v1
 
 # OpenAI
-kubectl logs <pod> | kubectl-log-insight --model gpt-4o --base-url https://api.openai.com/v1 --api-key sk-...
+kubectl logs <pod> | kubectl-insight-logs --model gpt-4o --base-url https://api.openai.com/v1 --api-key sk-...
 ```
 
 ## Large logs
@@ -115,16 +115,16 @@ cat > /tmp/test.log <<EOF
 EOF
 
 # 3. Summarize
-kubectl-log-insight --file /tmp/test.log --model qwen/qwen3.5-9b --base-url http://localhost:1234/v1
+kubectl-insight-logs --file /tmp/test.log --model qwen/qwen3.5-9b --base-url http://localhost:1234/v1
 
 # 4. Ask a question
-kubectl-log-insight --file /tmp/test.log --model qwen/qwen3.5-9b --base-url http://localhost:1234/v1 -q "what went wrong?"
+kubectl-insight-logs --file /tmp/test.log --model qwen/qwen3.5-9b --base-url http://localhost:1234/v1 -q "what went wrong?"
 ```
 
 ## Example output
 
 ```
-➜ kubectl logs prometheus-prometheus-1 | kubectl-log-insight --model qwen/qwen3.5-9b --base-url http://localhost:1234/v1 -q "do you find any problem"
+➜ kubectl logs prometheus-prometheus-1 | kubectl-insight-logs --model qwen/qwen3.5-9b --base-url http://localhost:1234/v1 -q "do you find any problem"
 ⚠  Logs truncated to 6500 tokens (oldest lines removed)
 
 Yes, I found several significant problems in these logs:

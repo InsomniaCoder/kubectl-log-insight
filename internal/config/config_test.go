@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/InsomniaCoder/kubectl-log-insight/internal/config"
+	"github.com/InsomniaCoder/kubectl-insight-logs/internal/config"
 )
 
 func TestLoadConfig_Defaults(t *testing.T) {

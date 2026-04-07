@@ -7,13 +7,13 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/InsomniaCoder/kubectl-log-insight/internal/config"
-	"github.com/InsomniaCoder/kubectl-log-insight/internal/llm"
-	"github.com/InsomniaCoder/kubectl-log-insight/internal/logs"
+	"github.com/InsomniaCoder/kubectl-insight-logs/internal/config"
+	"github.com/InsomniaCoder/kubectl-insight-logs/internal/llm"
+	"github.com/InsomniaCoder/kubectl-insight-logs/internal/logs"
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "kubectl-log-insight",
+	Use:   "kubectl-insight-logs",
 	Short: "Analyze Kubernetes logs using a local LLM",
 	RunE:  run,
 }

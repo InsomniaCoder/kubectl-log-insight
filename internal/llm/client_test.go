@@ -6,7 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/InsomniaCoder/kubectl-log-insight/internal/llm"
+	"github.com/InsomniaCoder/kubectl-insight-logs/internal/llm"
 )
 
 func TestAsk_ReturnsLLMContent(t *testing.T) {

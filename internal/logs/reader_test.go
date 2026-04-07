@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/InsomniaCoder/kubectl-log-insight/internal/logs"
+	"github.com/InsomniaCoder/kubectl-insight-logs/internal/logs"
 )
 
 func TestRead_FromReader(t *testing.T) {
