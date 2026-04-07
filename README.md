@@ -44,6 +44,8 @@ Verify kubectl discovers it:
 kubectl plugin list  # should show kubectl-log-insight
 ```
 
+kubectl discovers plugins by scanning every directory in your `$PATH` for executables named `kubectl-*`. Because this binary is named `kubectl-log-insight`, kubectl automatically exposes it as `kubectl log-insight` — dashes after the first one become spaces. No registration or manifest file needed.
+
 ## Flags
 
 | Flag | Required | Default | Description |
